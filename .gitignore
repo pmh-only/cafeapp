@@ -1,0 +1,138 @@
+# Terraform
+infrastructure/terraform/.terraform/
+infrastructure/terraform/.terraform.lock.hcl
+infrastructure/terraform/terraform.tfstate
+infrastructure/terraform/terraform.tfstate.backup
+infrastructure/terraform/*.tfplan
+infrastructure/terraform/*.tfvars
+infrastructure/terraform/.terraform.tfstate.lock.info
+
+# Lambda deployment packages
+services/*/lambda_function.zip
+services/*/*.zip
+services/*/placeholder.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.venv/
+venv/
+ENV/
+env/
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+vendor/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Java/Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+logs/
+/tmp/
+*.tmp
+
+# AWS
+.aws/
+*.pem
+*.key
+
+# Secrets
+.env
+*.secret
+*credentials*
+!infrastructure/terraform/modules/*/variables.tf
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Build artifacts
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.nar
+*.ear
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Claude/AI
+.claude/
+*.db
+*.sqlite
+*.jsonl
+
+# Deployment logs
+*_apply.log
+*_plan.log
