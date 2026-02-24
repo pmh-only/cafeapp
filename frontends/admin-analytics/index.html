@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudCafe Analytics - The Story Behind the Numbers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .insight-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .insight-banner h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .insight-banner p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .metric-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .metric-card .value {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-card .label {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .metric-card .story {
+            font-size: 0.95em;
+            line-height: 1.6;
+            opacity: 0.8;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .chart-section {
+            background: #151932;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #f093fb;
+        }
+
+        .chart-placeholder {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .story-insights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .insight-card {
+            background: #151932;
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 5px solid #f093fb;
+        }
+
+        .insight-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #f093fb;
+        }
+
+        .insight-card p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #b0b0b0;
+        }
+
+        .insight-card .highlight {
+            background: rgba(240, 147, 251, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 3px solid #f093fb;
+        }
+
+        .customer-journey {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .customer-journey h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .journey-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .journey-node {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .journey-node::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #f093fb;
+        }
+
+        .journey-node:last-child::after {
+            display: none;
+        }
+
+        .journey-node .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #f093fb;
+            margin-bottom: 10px;
+        }
+
+        .journey-node .label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .journey-node .detail {
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        .top-performers {
+            background: #151932;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .top-performers h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .performer-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            margin: 15px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .performer-item:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateX(5px);
+        }
+
+        .performer-rank {
+            font-size: 2em;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .performer-info {
+            flex: 1;
+        }
+
+        .performer-info .name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .performer-info .story {
+            font-size: 0.95em;
+            color: #888;
+        }
+
+        .performer-stats {
+            text-align: right;
+        }
+
+        .performer-stats .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #f093fb;
+        }
+
+        .performer-stats .label {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .journey-flow {
+                flex-direction: column;
+            }
+
+            .journey-node::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -30px;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 CloudCafe Analytics</h1>
+        <p class="subtitle">The Story Behind Every Cup - Seoul Region (ap-northeast-2)</p>
+    </div>
+
+    <div class="dashboard">
+        <div class="insight-banner">
+            <h2>🎯 Today's Big Picture</h2>
+            <p>
+                Behind every number is a story. Behind every metric is a person. Today, 2,847 customers 
+                started their day with us. That's 2,847 morning rituals, 2,847 moments of joy, and 
+                2,847 reasons we do what we do.
+            </p>
+            <p>
+                <strong>We're not just tracking sales. We're measuring happiness, one cup at a time.</strong>
+            </p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="icon">☕</div>
+                <div class="value">2,847</div>
+                <div class="label">Orders Today</div>
+                <div class="story">
+                    That's 47 more than yesterday! The morning rush peaked at 8:23 AM when Sarah, 
+                    our regular nurse, ordered her usual double espresso after her night shift.
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="icon">💰</div>
+                <div class="value">$14,235</div>
+                <div class="label">Revenue Today</div>
+                <div class="story">
+                    Our best Tuesday ever! The new Caramel Cloud Macchiato is a hit – 342 orders 
+                    today. Customers are calling it "liquid happiness."
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="icon">⭐</div>
+                <div class="value">4.9</div>
+                <div class="label">Customer Rating</div>
+                <div class="story">
+                    Up from 4.8 last week! Maria's latte art class for baristas is paying off. 
+                    Customers are posting photos with #CloudCafeArt.
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="icon">⚡</div>
+                <div class="value">2:15</div>
+                <div class="label">Avg. Prep Time</div>
+                <div class="story">
+                    15 seconds faster than last month! Our new workflow is working. Customers 
+                    are happy, baristas are less stressed. Win-win.
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="icon">🎁</div>
+                <div class="value">1,247</div>
+                <div class="label">Loyalty Members</div>
+                <div class="story">
+                    127 new members this week! Word is spreading. Our Gold members spend 3x more 
+                    than regular customers. Loyalty pays off.
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="icon">🌍</div>
+                <div class="value">98%</div>
+                <div class="label">Sustainability Score</div>
+                <div class="story">
+                    We've eliminated 12,000 plastic cups this month. Customers love our compostable 
+                    cups. Good for Earth, good for business.
+                </div>
+            </div>
+        </div>
+
+        <div class="customer-journey">
+            <h2>🚀 The Customer Journey - From Discovery to Devotion</h2>
+            <div class="journey-flow">
+                <div class="journey-node">
+                    <div class="number">100%</div>
+                    <div class="label">Discovery</div>
+                    <div class="detail">2,847 visitors today</div>
+                </div>
+                <div class="journey-node">
+                    <div class="number">78%</div>
+                    <div class="label">First Order</div>
+                    <div class="detail">2,220 placed orders</div>
+                </div>
+                <div class="journey-node">
+                    <div class="number">65%</div>
+                    <div class="label">Return Visit</div>
+                    <div class="detail">1,851 came back</div>
+                </div>
+                <div class="journey-node">
+                    <div class="number">44%</div>
+                    <div class="label">Loyalty Member</div>
+                    <div class="detail">1,247 joined rewards</div>
+                </div>
+                <div class="journey-node">
+                    <div class="number">23%</div>
+                    <div class="label">Brand Advocate</div>
+                    <div class="detail">655 refer friends</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-insights">
+            <div class="insight-card">
+                <h3>🌅 Morning Rush Insights</h3>
+                <p>
+                    The magic happens between 7:00-9:00 AM. That's when 42% of our daily orders come in. 
+                    These aren't just transactions – they're rituals. People order the same drink at the 
+                    same time every day.
+                </p>
+                <p>
+                    Our data shows that customers who order before 8 AM are 3x more likely to become 
+                    loyalty members. Early birds really do get the worm (or in this case, the rewards).
+                </p>
+                <div class="highlight">
+                    <strong>Action Item:</strong> Consider a "Morning Warrior" loyalty tier for customers 
+                    who order before 7 AM. They're our most dedicated fans.
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h3>💝 The Loyalty Effect</h3>
+                <p>
+                    Loyalty members spend an average of $8.50 per visit vs. $5.20 for non-members. 
+                    But here's the real story: they visit 4.2x more often.
+                </p>
+                <p>
+                    It's not about the free drinks – it's about belonging. Our surveys show that 87% 
+                    of loyalty members say they feel "part of the CloudCafe family." That's priceless.
+                </p>
+                <div class="highlight">
+                    <strong>Insight:</strong> The most valuable customers aren't the ones who spend the 
+                    most per visit. They're the ones who keep coming back.
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h3>🎯 Menu Performance</h3>
+                <p>
+                    Top 3 drinks account for 47% of all orders. But here's what's interesting: 
+                    customers who try our seasonal specials have a 68% higher retention rate.
+                </p>
+                <p>
+                    The new Caramel Cloud Macchiato? It's not just a drink – it's a conversation 
+                    starter. Customers are posting about it, tagging friends, creating buzz.
+                </p>
+                <div class="highlight">
+                    <strong>Strategy:</strong> Keep innovating. Seasonal specials drive engagement 
+                    and give customers a reason to try something new.
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <h3>⚡ Speed Matters</h3>
+                <p>
+                    Every 30 seconds saved in prep time increases customer satisfaction by 12%. 
+                    But there's a sweet spot – too fast feels rushed, too slow feels neglectful.
+                </p>
+                <p>
+                    Our data shows that 2-3 minutes is perfect. Fast enough to respect their time, 
+                    slow enough to show we care about quality.
+                </p>
+                <div class="highlight">
+                    <strong>Balance:</strong> Speed is important, but quality is everything. Never 
+                    sacrifice one for the other.
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h2>📈 Revenue Trends - The Growth Story</h2>
+            <div class="chart-placeholder">
+                📊 Interactive chart showing revenue growth over time<br>
+                (Chart visualization would be implemented with Chart.js or D3.js)
+            </div>
+            <p style="margin-top: 20px; line-height: 1.8; color: #b0b0b0;">
+                <strong>The Story:</strong> We've grown 127% year-over-year. But it's not just about 
+                the numbers. Each uptick represents a customer who chose us over the competition. 
+                Each plateau taught us something. Each spike tells a story of innovation and hard work.
+            </p>
+        </div>
+
+        <div class="top-performers">
+            <h2>🏆 Top Performing Locations</h2>
+            <p style="margin-bottom: 20px; color: #888;">
+                Every location has its own personality, its own story, its own community.
+            </p>
+
+            <div class="performer-item">
+                <div class="performer-rank">🥇</div>
+                <div class="performer-info">
+                    <div class="name">Gangnam Station</div>
+                    <div class="story">
+                        The powerhouse. Morning rush is insane – 847 orders before 10 AM. 
+                        Customers love the speed and consistency. Maria's team is legendary.
+                    </div>
+                </div>
+                <div class="performer-stats">
+                    <div class="value">$5,247</div>
+                    <div class="label">Daily Revenue</div>
+                </div>
+            </div>
+
+            <div class="performer-item">
+                <div class="performer-rank">🥈</div>
+                <div class="performer-info">
+                    <div class="name">Hongdae</div>
+                    <div class="story">
+                        The creative hub. Students and artists love the vibe. Afternoon and 
+                        evening sales are strongest. Known for amazing latte art.
+                    </div>
+                </div>
+                <div class="performer-stats">
+                    <div class="value">$4,892</div>
+                    <div class="label">Daily Revenue</div>
+                </div>
+            </div>
+
+            <div class="performer-item">
+                <div class="performer-rank">🥉</div>
+                <div class="performer-info">
+                    <div class="name">Itaewon</div>
+                    <div class="story">
+                        The international favorite. Diverse customer base, highest average 
+                        order value. Customers appreciate the multilingual staff.
+                    </div>
+                </div>
+                <div class="performer-stats">
+                    <div class="value">$4,096</div>
+                    <div class="label">Daily Revenue</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-banner">
+            <h2>🎯 The Bottom Line</h2>
+            <p>
+                Numbers tell us what happened. Stories tell us why it matters. Every metric in this 
+                dashboard represents real people making real choices. They chose us. They trusted us 
+                with their morning ritual, their afternoon break, their celebration moment.
+            </p>
+            <p>
+                <strong>That's not just business. That's responsibility. That's privilege. That's why we do this.</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Animate metrics on load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.metric-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const ordersValue = document.querySelector('.metric-card .value');
+            if (ordersValue && ordersValue.textContent.includes(',')) {
+                let current = parseInt(ordersValue.textContent.replace(',', ''));
+                current += Math.floor(Math.random() * 3);
+                ordersValue.textContent = current.toLocaleString();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CloudCafe Mobile - Coffee in Your Pocket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            max-width: 428px;
+            margin: 0 auto;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+
+        .status-bar {
+            background: #6f4e37;
+            color: white;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, #6f4e37 0%, #d4a574 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .app-header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .app-header .tagline {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .story-card {
+            background: white;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .story-card h2 {
+            font-size: 1.4em;
+            color: #6f4e37;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .story-card p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .quick-order {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 15px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .quick-order h2 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .quick-order-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 10px 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .menu-item:active {
+            transform: scale(0.95);
+        }
+
+        .menu-item .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .menu-item .name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .menu-item .story {
+            font-size: 0.85em;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .menu-item .price {
+            font-size: 1.2em;
+            color: #6f4e37;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .rewards-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            margin: 15px;
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        .rewards-section h2 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 75%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .rewards-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .testimonial-slider {
+            background: white;
+            margin: 15px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .testimonial {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #6f4e37;
+            font-style: normal;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 428px;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        .nav-item.active {
+            color: #6f4e37;
+        }
+
+        .nav-item .icon {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .floating-cart {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #6f4e37;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #f5576c;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6em;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar">
+        <span>9:41</span>
+        <span>📶 ⚡ 100%</span>
+    </div>
+
+    <div class="app-header">
+        <h1>☕ CloudCafe</h1>
+        <p class="tagline">Your coffee story starts here</p>
+    </div>
+
+    <div class="story-card">
+        <h2>🌅 Good Morning, Coffee Lover!</h2>
+        <p>
+            Every great day starts with a great cup of coffee. Whether you're rushing to a meeting 
+            or savoring a quiet moment, we're here to make your coffee experience unforgettable.
+        </p>
+        <p>
+            <strong>Fun fact:</strong> Your favorite barista, Maria, has been perfecting her latte 
+            art for 8 years. That heart in your cappuccino? It's made with love and years of practice.
+        </p>
+    </div>
+
+    <div class="quick-order">
+        <h2>⚡ Your Usual?</h2>
+        <p style="margin-bottom: 20px;">We remember what you love</p>
+        <button class="quick-order-button" onclick="alert('Ordering your favorite: Caramel Macchiato with oat milk!')">
+            Caramel Macchiato 🥛
+        </button>
+        <button class="quick-order-button" onclick="alert('Ordering your second favorite: Double Espresso!')">
+            Double Espresso ☕
+        </button>
+    </div>
+
+    <div class="story-card">
+        <h2>🎯 Today's Featured Story</h2>
+        <p>
+            <strong>Ethiopian Yirgacheffe</strong> - This isn't just coffee. It's a journey to the 
+            birthplace of coffee itself. Grown at 6,000 feet in the Gedeo Zone, these beans are 
+            hand-picked by farmers who've been perfecting their craft for generations.
+        </p>
+        <p>
+            Expect bright citrus notes, floral aromatics, and a wine-like acidity that'll make 
+            your taste buds dance. It's like sunshine in a cup.
+        </p>
+    </div>
+
+    <div style="padding: 15px;">
+        <h2 style="color: #6f4e37; margin-bottom: 15px;">☕ Explore Our Menu</h2>
+    </div>
+
+    <div class="menu-grid">
+        <div class="menu-item">
+            <div class="icon">☕</div>
+            <div class="name">Classic Espresso</div>
+            <div class="story">Bold, intense, pure coffee essence</div>
+            <div class="price">$3.50</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="icon">🥛</div>
+            <div class="name">Caramel Macchiato</div>
+            <div class="story">Sweet escape in every sip</div>
+            <div class="price">$5.25</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="icon">🍵</div>
+            <div class="name">Matcha Latte</div>
+            <div class="story">Zen in a cup, energy for hours</div>
+            <div class="price">$4.75</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="icon">🧊</div>
+            <div class="name">Cold Brew</div>
+            <div class="story">Smooth, refreshing, never bitter</div>
+            <div class="price">$4.50</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="icon">🍫</div>
+            <div class="name">Mocha</div>
+            <div class="story">Coffee meets chocolate heaven</div>
+            <div class="price">$5.50</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="icon">🌿</div>
+            <div class="name">Herbal Tea</div>
+            <div class="story">Calm, soothing, caffeine-free</div>
+            <div class="price">$3.25</div>
+        </div>
+    </div>
+
+    <div class="rewards-section">
+        <h2>🌟 Your Rewards Journey</h2>
+        <p>You're 3 drinks away from a free coffee!</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="rewards-info">
+            <span>9 of 12 drinks</span>
+            <span>Gold Member ⭐</span>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.9em;">
+            <strong>Your Story:</strong> You've been with us for 8 months and ordered 127 drinks. 
+            You're in the top 5% of our most loyal customers. Thank you for being part of our family!
+        </p>
+    </div>
+
+    <div class="testimonial-slider">
+        <h2 style="color: #6f4e37; margin-bottom: 15px;">💬 Stories from Coffee Lovers</h2>
+        <div class="testimonial">
+            "CloudCafe isn't just my coffee shop – it's my morning ritual, my afternoon pick-me-up, 
+            and my evening treat. The app makes it so easy, and the baristas know my name. 
+            It feels like home."
+            <div class="testimonial-author">- Jessica M., Software Engineer</div>
+        </div>
+    </div>
+
+    <div class="story-card">
+        <h2>🌍 Your Impact</h2>
+        <p>
+            By choosing CloudCafe, you've helped:
+        </p>
+        <ul style="margin: 15px 0; padding-left: 20px; line-height: 2;">
+            <li>Support 12 coffee farming families in Colombia</li>
+            <li>Plant 47 trees in coffee-growing regions</li>
+            <li>Reduce 23 lbs of CO₂ with our compostable cups</li>
+        </ul>
+        <p>
+            <strong>You're not just drinking coffee. You're making a difference.</strong>
+        </p>
+    </div>
+
+    <div style="height: 100px;"></div>
+
+    <div class="floating-cart pulse">
+        🛒
+        <div class="cart-badge">3</div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <div class="icon">🏠</div>
+            <div>Home</div>
+        </div>
+        <div class="nav-item">
+            <div class="icon">📋</div>
+            <div>Menu</div>
+        </div>
+        <div class="nav-item">
+            <div class="icon">🎁</div>
+            <div>Rewards</div>
+        </div>
+        <div class="nav-item">
+            <div class="icon">👤</div>
+            <div>Profile</div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate progress bar animation
+        window.addEventListener('load', () => {
+            const progressBar = document.querySelector('.progress-fill');
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = '75%';
+            }, 500);
+        });
+
+        // Add touch feedback to menu items
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const name = this.querySelector('.name').textContent;
+                alert(`Added ${name} to your cart! ☕\n\nYour order will be ready in 5 minutes at our Seoul location.`);
+            });
+        });
+
+        // Simulate real-time updates
+        let cartCount = 3;
+        document.querySelector('.floating-cart').addEventListener('click', () => {
+            alert(`You have ${cartCount} items in your cart:\n\n1. Caramel Macchiato - $5.25\n2. Blueberry Muffin - $3.50\n3. Cold Brew - $4.50\n\nTotal: $13.25\n\nReady to checkout?`);
+        });
+    </script>
+</body>
+</html>
