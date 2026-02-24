@@ -15,6 +15,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	dynamodbtypes "github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/mux"
 
@@ -126,8 +127,8 @@ func getStoreInventoryHandler(w http.ResponseWriter, r *http.Request) {
 	input := &dynamodb.QueryInput{
 		TableName:              aws.String(tableName),
 		KeyConditionExpression: aws.String("store_id = :storeId"),
-		ExpressionAttributeValues: map[string]dynamodb.AttributeValue{
-			":storeId": &dynamodb.AttributeValueMemberS{Value: storeID},
+		ExpressionAttributeValues: map[string]dynamodbtypes.AttributeValue{
+			":storeId": &dynamodbtypes.AttributeValueMemberS{Value: storeID},
 		},
 	}
 

@@ -3,9 +3,10 @@ resource "aws_cloudfront_origin_access_identity" "main" {
   comment = "${var.project_name} CloudFront OAI ${var.environment}"
 }
 
-# WAF Web ACL for CloudFront
+# WAF Web ACL for CloudFront (must be in us-east-1)
+# Note: CloudFront WAF requires us-east-1 region, disabled for non-us-east-1 deployments
 resource "aws_wafv2_web_acl" "cloudfront" {
-  count = var.enable_waf ? 1 : 0
+  count = 0  # Disabled - CloudFront WAF requires us-east-1 region
 
   name  = "${var.project_name}-cloudfront-waf-${var.environment}"
   scope = "CLOUDFRONT"
@@ -103,7 +104,8 @@ resource "aws_cloudfront_distribution" "main" {
   comment             = "${var.project_name} CDN ${var.environment}"
   default_root_object = "index.html"
   price_class         = var.price_class
-  web_acl_id          = var.enable_waf ? aws_wafv2_web_acl.cloudfront[0].arn : null
+  # web_acl_id disabled - CloudFront WAF requires us-east-1 region
+  # web_acl_id          = var.enable_waf ? aws_wafv2_web_acl.cloudfront[0].arn : null
 
   # Origin - Application Load Balancer
   origin {

@@ -50,7 +50,10 @@ resource "aws_iam_role_policy" "lambda_permissions" {
           "sqs:GetQueueAttributes",
           "sqs:SendMessage"
         ]
-        Resource = var.payment_processing_queue_arn
+        Resource = [
+          var.payment_processing_queue_arn,
+          aws_sqs_queue.payment_dlq.arn
+        ]
       },
       {
         Effect = "Allow"
@@ -158,7 +161,7 @@ resource "aws_lambda_event_source_mapping" "payment_sqs" {
   event_source_arn = var.payment_processing_queue_arn
   function_name    = aws_lambda_function.payment_processor.arn
   batch_size       = 10
-  maximum_batching_window_in_seconds = 5
+  # Note: batching window not supported for FIFO queues
 
   scaling_config {
     maximum_concurrency = 100

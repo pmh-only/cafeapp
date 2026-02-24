@@ -25,12 +25,12 @@ output "cloudfront_url" {
 
 output "waf_web_acl_id" {
   description = "WAF Web ACL ID"
-  value       = var.enable_waf ? aws_wafv2_web_acl.cloudfront[0].id : null
+  value       = length(aws_wafv2_web_acl.cloudfront) > 0 ? aws_wafv2_web_acl.cloudfront[0].id : null
 }
 
 output "waf_web_acl_arn" {
   description = "WAF Web ACL ARN"
-  value       = var.enable_waf ? aws_wafv2_web_acl.cloudfront[0].arn : null
+  value       = length(aws_wafv2_web_acl.cloudfront) > 0 ? aws_wafv2_web_acl.cloudfront[0].arn : null
 }
 
 output "logs_bucket_name" {

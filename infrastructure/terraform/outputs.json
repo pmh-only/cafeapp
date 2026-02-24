@@ -1,0 +1,193 @@
+{
+  "alb_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:elasticloadbalancing:ap-northeast-2:972209100553:loadbalancer/app/cloudcafe-alb-dev/620602004ccde395"
+  },
+  "alb_dns_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com"
+  },
+  "analytics_writer_function_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-analytics-writer-dev"
+  },
+  "api_gateway_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev"
+  },
+  "cloudfront_distribution_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "E169C42BSHQ99R"
+  },
+  "cloudfront_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://d3prghburdy7oe.cloudfront.net"
+  },
+  "documentdb_cluster_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-docdb-dev"
+  },
+  "documentdb_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-docdb-dev.cluster-cf1uihhgb336.ap-northeast-2.docdb.amazonaws.com"
+  },
+  "dynamodb_table_names": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "active_orders": "string",
+        "menu_catalog": "string",
+        "store_inventory": "string"
+      }
+    ],
+    "value": {
+      "active_orders": "cloudcafe-active-orders-dev",
+      "menu_catalog": "cloudcafe-menu-catalog-dev",
+      "store_inventory": "cloudcafe-store-inventory-dev"
+    }
+  },
+  "ec2_autoscaling_group_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-loyalty-asg-dev"
+  },
+  "ecs_cluster_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:ecs:ap-northeast-2:972209100553:cluster/cloudcafe-ecs-dev"
+  },
+  "ecs_cluster_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-ecs-dev"
+  },
+  "ecs_task_security_group_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "sg-0f2dea48d5de56081"
+  },
+  "eks_cluster_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://90BAB6418CC67FF6A40C91B5D8B65827.gr7.ap-northeast-2.eks.amazonaws.com"
+  },
+  "eks_cluster_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-eks-dev"
+  },
+  "elasticache_cluster_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-redis-dev"
+  },
+  "elasticache_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-redis-dev.dd4mct.ng.0001.apn2.cache.amazonaws.com"
+  },
+  "kinesis_stream_names": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string",
+        "string"
+      ]
+    ],
+    "value": [
+      "cloudcafe-order-events-dev",
+      "cloudcafe-analytics-events-dev"
+    ]
+  },
+  "memorydb_cluster_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "clustercfg.cloudcafe-memorydb-dev.dd4mct.memorydb.ap-northeast-2.amazonaws.com"
+  },
+  "memorydb_cluster_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-memorydb-dev"
+  },
+  "nlb_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:elasticloadbalancing:ap-northeast-2:972209100553:loadbalancer/net/cloudcafe-nlb-dev/1f64886835d5e522"
+  },
+  "nlb_dns_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-nlb-dev-1f64886835d5e522.elb.ap-northeast-2.amazonaws.com"
+  },
+  "order_events_stream_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-order-events-dev"
+  },
+  "payment_processing_queue_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://sqs.ap-northeast-2.amazonaws.com/972209100553/cloudcafe-payment-processing-dev.fifo"
+  },
+  "payment_processor_function_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-payment-processor-dev"
+  },
+  "rds_cluster_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-aurora-dev.cluster-cf1uihhgb336.ap-northeast-2.rds.amazonaws.com"
+  },
+  "rds_cluster_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-aurora-dev"
+  },
+  "redshift_cluster_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-redshift-dev"
+  },
+  "redshift_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "cloudcafe-redshift-dev.cjfbyqgpd4hg.ap-northeast-2.redshift.amazonaws.com:5439"
+  },
+  "sqs_queue_urls": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "notification": "string",
+        "order_submission": "string",
+        "payment_processing": "string"
+      }
+    ],
+    "value": {
+      "notification": "https://sqs.ap-northeast-2.amazonaws.com/972209100553/cloudcafe-notification-dev",
+      "order_submission": "https://sqs.ap-northeast-2.amazonaws.com/972209100553/cloudcafe-order-submission-dev",
+      "payment_processing": "https://sqs.ap-northeast-2.amazonaws.com/972209100553/cloudcafe-payment-processing-dev.fifo"
+    }
+  },
+  "vpc_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "vpc-085aaa3f5dcc14579"
+  },
+  "vpc_lattice_service_network_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:vpc-lattice:ap-northeast-2:972209100553:servicenetwork/sn-073d625050b6b9057"
+  }
+}

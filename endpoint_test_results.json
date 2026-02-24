@@ -1,0 +1,220 @@
+{
+  "total_tests": 24,
+  "passed_tests": 18,
+  "failed_tests": 6,
+  "pass_rate": 75.0,
+  "results": [
+    {
+      "name": "Application Load Balancer",
+      "hostname": "cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "status": "PASS",
+      "ip_addresses": [
+        "13.124.210.29",
+        "54.180.65.230",
+        "3.39.147.236"
+      ]
+    },
+    {
+      "name": "Network Load Balancer",
+      "hostname": "cloudcafe-nlb-dev-1f64886835d5e522.elb.ap-northeast-2.amazonaws.com",
+      "status": "PASS",
+      "ip_addresses": [
+        "10.0.12.112",
+        "10.0.11.43",
+        "10.0.13.224"
+      ]
+    },
+    {
+      "name": "ALB Root Path",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.008,
+      "error": null
+    },
+    {
+      "name": "ALB /api Path",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/api",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.005,
+      "error": null
+    },
+    {
+      "name": "ALB /health Path",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/health",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.008,
+      "error": null
+    },
+    {
+      "name": "API Gateway Root",
+      "url": "https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 403,
+      "response_time": 0.068,
+      "error": null
+    },
+    {
+      "name": "API Gateway /api",
+      "url": "https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev/api",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 403,
+      "response_time": 0.075,
+      "error": null
+    },
+    {
+      "name": "API Gateway GET /api/orders",
+      "url": "https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev/api/orders",
+      "method": "GET",
+      "status": "TIMEOUT",
+      "status_code": null,
+      "response_time": null,
+      "error": "Request timeout"
+    },
+    {
+      "name": "API Gateway POST /api/orders",
+      "url": "https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev/api/orders",
+      "method": "POST",
+      "status": "TIMEOUT",
+      "status_code": null,
+      "response_time": null,
+      "error": "Request timeout"
+    },
+    {
+      "name": "CloudFront Root",
+      "url": "https://d3prghburdy7oe.cloudfront.net",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 1.29,
+      "error": null
+    },
+    {
+      "name": "CloudFront /api",
+      "url": "https://d3prghburdy7oe.cloudfront.net/api",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 1.295,
+      "error": null
+    },
+    {
+      "name": "CloudFront /static",
+      "url": "https://d3prghburdy7oe.cloudfront.net/static",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 1.029,
+      "error": null
+    },
+    {
+      "name": "Order Service - List",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/api/orders",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.008,
+      "error": null
+    },
+    {
+      "name": "Order Service - Create",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/api/orders",
+      "method": "POST",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.009,
+      "error": null
+    },
+    {
+      "name": "Menu Service - Items",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/api/menu/items",
+      "method": "GET",
+      "status": "FAIL",
+      "status_code": 503,
+      "response_time": 0.005,
+      "error": null
+    },
+    {
+      "name": "Inventory Service - Check",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/api/inventory/check",
+      "method": "GET",
+      "status": "FAIL",
+      "status_code": 503,
+      "response_time": 0.004,
+      "error": null
+    },
+    {
+      "name": "Loyalty Service - Points",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com/api/loyalty/points/user123",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.005,
+      "error": null
+    },
+    {
+      "name": "RDS Aurora PostgreSQL",
+      "host": "cloudcafe-aurora-dev.cluster-cf1uihhgb336.ap-northeast-2.rds.amazonaws.com",
+      "port": 5432,
+      "status": "TIMEOUT"
+    },
+    {
+      "name": "ElastiCache Redis",
+      "host": "cloudcafe-redis-dev.dd4mct.ng.0001.apn2.cache.amazonaws.com",
+      "port": 6379,
+      "status": "TIMEOUT"
+    },
+    {
+      "name": "ALB Request 1",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.004,
+      "error": null
+    },
+    {
+      "name": "ALB Request 2",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.004,
+      "error": null
+    },
+    {
+      "name": "ALB Request 3",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.003,
+      "error": null
+    },
+    {
+      "name": "ALB Request 4",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.006,
+      "error": null
+    },
+    {
+      "name": "ALB Request 5",
+      "url": "http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com",
+      "method": "GET",
+      "status": "PASS",
+      "status_code": 404,
+      "response_time": 0.003,
+      "error": null
+    }
+  ]
+}
