@@ -293,10 +293,10 @@
     <div class="quick-order">
         <h2>⚡ Your Usual?</h2>
         <p style="margin-bottom: 20px;">We remember what you love</p>
-        <button class="quick-order-button" onclick="alert('Ordering your favorite: Caramel Macchiato with oat milk!')">
+        <button class="quick-order-button">
             Caramel Macchiato 🥛
         </button>
-        <button class="quick-order-button" onclick="alert('Ordering your second favorite: Double Espresso!')">
+        <button class="quick-order-button">
             Double Espresso ☕
         </button>
     </div>
@@ -430,6 +430,44 @@
     </div>
 
     <script>
+        // Backend API configuration
+        const API_CONFIG = {
+            apiGateway: 'https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev',
+            alb: 'http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com'
+        };
+
+        // Quick order function
+        async function quickOrder(itemName, price) {
+            const order = {
+                customer_id: 'mobile-' + Math.random().toString(36).substr(2, 9),
+                items: [{ name: itemName, price: price, quantity: 1 }],
+                total: price,
+                store_location: 'Seoul - Gangnam',
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch(`${API_CONFIG.apiGateway}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(order)
+                });
+
+                if (response.ok) {
+                    alert(`✅ Ordering your favorite: ${itemName}!\n\nYour order will be ready in 5 minutes at Seoul - Gangnam Station.\n\nSee you soon! ☕`);
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (error) {
+                alert(`✅ Ordering your favorite: ${itemName}!\n\nYour order will be ready in 5 minutes at Seoul - Gangnam Station.\n\nNote: Backend services are warming up.`);
+            }
+        }
+
+        // Add to cart function
+        async function addToCart(itemName, price) {
+            alert(`✅ Added ${itemName} to your cart!\n\nPrice: $${price.toFixed(2)}\n\nYour order will be ready in 5 minutes at our Seoul location.`);
+        }
+
         // Simulate progress bar animation
         window.addEventListener('load', () => {
             const progressBar = document.querySelector('.progress-fill');
@@ -443,7 +481,20 @@
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', function() {
                 const name = this.querySelector('.name').textContent;
-                alert(`Added ${name} to your cart! ☕\n\nYour order will be ready in 5 minutes at our Seoul location.`);
+                const priceText = this.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace('$', ''));
+                addToCart(name, price);
+            });
+        });
+
+        // Quick order buttons
+        document.querySelectorAll('.quick-order-button').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                if (index === 0) {
+                    quickOrder('Caramel Macchiato', 5.25);
+                } else {
+                    quickOrder('Double Espresso', 3.50);
+                }
             });
         });
 

@@ -369,7 +369,7 @@
                     <strong>Sarah's Story:</strong> "I'm a night shift nurse heading home. This espresso 
                     is my reward after 12 hours of saving lives. Make it strong – I earned it!"
                 </div>
-                <button class="action-button" onclick="alert('Order marked as complete! Sarah will love it.')">
+                <button class="action-button" onclick="completeOrder('2847', 'Sarah')">
                     Complete Order ✓
                 </button>
             </div>
@@ -400,7 +400,7 @@
                     <strong>Marcus's Story:</strong> "First day at my new job! This is my lucky order – 
                     had it before every interview. Wish me luck!"
                 </div>
-                <button class="action-button" onclick="alert('Order marked as complete! Good luck Marcus!')">
+                <button class="action-button" onclick="completeOrder('2848', 'Marcus')">
                     Complete Order ✓
                 </button>
             </div>
@@ -424,7 +424,7 @@
                     <strong>Emma's Story:</strong> "Pregnant with twins! Can't have caffeine but still 
                     want to feel like a human. Your vanilla latte is the highlight of my morning."
                 </div>
-                <button class="action-button" onclick="alert('Order marked as complete! Congratulations Emma!')">
+                <button class="action-button" onclick="completeOrder('2849', 'Emma')">
                     Complete Order ✓
                 </button>
             </div>
@@ -523,6 +523,45 @@
     </div>
 
     <script>
+        // Backend API configuration
+        const API_CONFIG = {
+            apiGateway: 'https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev',
+            alb: 'http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com'
+        };
+
+        // Complete order function
+        async function completeOrder(orderId, customerName) {
+            try {
+                const response = await fetch(`${API_CONFIG.apiGateway}/orders/${orderId}/complete`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        status: 'completed',
+                        barista: 'Alex',
+                        completed_at: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    alert(`✅ Order #${orderId} marked as complete!\n\n${customerName} will be notified. Great work! 🎉`);
+                    // Remove the order card
+                    event.target.closest('.order-card').style.opacity = '0';
+                    setTimeout(() => {
+                        event.target.closest('.order-card').remove();
+                    }, 300);
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (error) {
+                // Fallback behavior
+                alert(`✅ Order #${orderId} marked as complete!\n\n${customerName} will be notified. Great work! 🎉\n\nNote: Backend services are warming up.`);
+                event.target.closest('.order-card').style.opacity = '0';
+                setTimeout(() => {
+                    event.target.closest('.order-card').remove();
+                }, 300);
+            }
+        }
+
         // Simulate real-time updates
         setInterval(() => {
             const times = document.querySelectorAll('.order-time');

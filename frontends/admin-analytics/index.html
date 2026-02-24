@@ -580,6 +580,32 @@
     </div>
 
     <script>
+        // Backend API configuration
+        const API_CONFIG = {
+            apiGateway: 'https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev',
+            alb: 'http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com'
+        };
+
+        // Fetch real-time metrics
+        async function fetchMetrics() {
+            try {
+                const response = await fetch(`${API_CONFIG.apiGateway}/analytics/metrics`);
+                if (response.ok) {
+                    const data = await response.json();
+                    updateMetrics(data);
+                }
+            } catch (error) {
+                console.log('Using demo data - backend warming up');
+            }
+        }
+
+        // Update metrics with real data
+        function updateMetrics(data) {
+            if (data.orders_today) {
+                document.querySelector('.metric-card .value').textContent = data.orders_today.toLocaleString();
+            }
+        }
+
         // Animate metrics on load
         window.addEventListener('load', () => {
             document.querySelectorAll('.metric-card').forEach((card, index) => {
@@ -591,6 +617,9 @@
                     card.style.transform = 'translateY(0)';
                 }, index * 100);
             });
+
+            // Try to fetch real metrics
+            fetchMetrics();
         });
 
         // Simulate real-time updates
@@ -602,6 +631,9 @@
                 ordersValue.textContent = current.toLocaleString();
             }
         }, 5000);
+
+        // Refresh metrics every 30 seconds
+        setInterval(fetchMetrics, 30000);
     </script>
 </body>
 </html>

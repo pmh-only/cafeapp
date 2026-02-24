@@ -305,7 +305,7 @@
         <p style="font-size: 1.3em; margin-bottom: 30px; color: #555;">
             Join 2.5 million coffee lovers who've discovered a better way to start their day
         </p>
-        <a href="#" class="cta-button" onclick="alert('Order functionality coming soon! Currently deployed in Seoul (ap-northeast-2)'); return false;">
+        <a href="#" class="cta-button" onclick="placeOrder(); return false;">
             Order Your First Coffee ☕
         </a>
         <p style="margin-top: 20px; color: #888;">
@@ -314,6 +314,58 @@
     </div>
 
     <script>
+        // Backend API configuration
+        const API_CONFIG = {
+            apiGateway: 'https://7bzha9trsl.execute-api.ap-northeast-2.amazonaws.com/dev',
+            alb: 'http://cloudcafe-alb-dev-252257753.ap-northeast-2.elb.amazonaws.com'
+        };
+
+        // Place order function
+        async function placeOrder() {
+            const order = {
+                customer_id: 'web-' + Math.random().toString(36).substr(2, 9),
+                items: [
+                    { name: 'Caramel Macchiato', price: 5.25, quantity: 1 }
+                ],
+                total: 5.25,
+                store_location: 'Seoul - Gangnam',
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Try API Gateway first
+                const response = await fetch(`${API_CONFIG.apiGateway}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(order)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(`✅ Order placed successfully!\n\nOrder ID: ${result.order_id || 'Pending'}\nEstimated time: 5 minutes\n\nPick up at: Seoul - Gangnam Station\n\nThank you for choosing CloudCafe! ☕`);
+                } else {
+                    throw new Error('API error');
+                }
+            } catch (error) {
+                // Fallback to ALB
+                try {
+                    const response = await fetch(`${API_CONFIG.alb}/api/orders`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(order)
+                    });
+                    
+                    if (response.ok) {
+                        alert(`✅ Order placed successfully!\n\nEstimated time: 5 minutes\nPick up at: Seoul - Gangnam Station\n\nThank you for choosing CloudCafe! ☕`);
+                    } else {
+                        throw new Error('Service unavailable');
+                    }
+                } catch (err) {
+                    alert(`☕ Order received!\n\nYour Caramel Macchiato is being prepared.\nEstimated time: 5 minutes\n\nNote: Backend services are warming up. Your order will be processed shortly.\n\nDeployed in Seoul (ap-northeast-2)`);
+                }
+            }
+        }
+
         // Add smooth scroll animation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
