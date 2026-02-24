@@ -165,3 +165,25 @@ output "cloudfront_url" {
   description = "CloudFront distribution URL"
   value       = module.frontend.cloudfront_url
 }
+
+
+# Frontend Applications Outputs
+output "frontend_s3_bucket" {
+  description = "S3 bucket name for frontend applications"
+  value       = module.frontend_apps.s3_bucket_name
+}
+
+output "frontend_cloudfront_id" {
+  description = "CloudFront distribution ID for frontend apps"
+  value       = module.frontend_apps.cloudfront_distribution_id
+}
+
+output "frontend_cloudfront_url" {
+  description = "CloudFront URL for frontend apps"
+  value       = module.frontend_apps.cloudfront_url
+}
+
+output "frontend_urls" {
+  description = "URLs for all frontend applications"
+  value       = module.frontend_apps.frontend_urls
+}

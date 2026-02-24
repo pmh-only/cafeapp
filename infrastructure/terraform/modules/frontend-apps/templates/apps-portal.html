@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudCafe - Frontend Applications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .app-card .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .app-card h2 {
+            color: #6f4e37;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .app-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .app-card a {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .app-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .info-section h2 {
+            color: #6f4e37;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        
+        .deployment-info {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            color: white;
+        }
+        
+        .deployment-info h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .deployment-info code {
+            background: rgba(0,0,0,0.2);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☕ CloudCafe</h1>
+            <p>Choose Your Experience</p>
+        </div>
+        
+        <div class="apps-grid">
+            <div class="app-card">
+                <div class="icon">🌐</div>
+                <h2>Customer Web</h2>
+                <p>Discover your new favorite coffee ritual. Every cup tells a story.</p>
+                <a href="/">Explore Menu</a>
+            </div>
+            
+            <div class="app-card">
+                <div class="icon">👨‍🍳</div>
+                <h2>Barista Dashboard</h2>
+                <p>Where art meets craft. Create moments of joy, one cup at a time.</p>
+                <a href="/barista/">Start Shift</a>
+            </div>
+            
+            <div class="app-card">
+                <div class="icon">📱</div>
+                <h2>Mobile App</h2>
+                <p>Coffee in your pocket. Order ahead, earn rewards, skip the line.</p>
+                <a href="/mobile/">Open App</a>
+            </div>
+            
+            <div class="app-card">
+                <div class="icon">📊</div>
+                <h2>Admin Analytics</h2>
+                <p>The story behind the numbers. Data-driven insights with heart.</p>
+                <a href="/admin/">View Dashboard</a>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>🚀 Deployed on AWS with Terraform</h2>
+            <p>
+                All frontends are deployed using Infrastructure as Code (Terraform) in the ap-northeast-2 (Seoul) region.
+                <br><br>
+                <strong>Infrastructure:</strong> S3 + CloudFront + Origin Access Identity
+                <br>
+                <strong>Deployment:</strong> Automated via Terraform
+                <br>
+                <strong>Status:</strong> Production Ready ✅
+                <br><br>
+                Built with ☕ and ❤️ by the CloudCafe Team
+            </p>
+        </div>
+        
+        <div class="deployment-info">
+            <h3>📦 Deployment Information</h3>
+            <p>
+                <strong>CloudFront URL:</strong> <code>${cloudfront_url}</code><br>
+                <strong>Region:</strong> <code>ap-northeast-2 (Seoul)</code><br>
+                <strong>Managed By:</strong> <code>Terraform</code><br>
+                <strong>Cache:</strong> <code>Optimized per application</code>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

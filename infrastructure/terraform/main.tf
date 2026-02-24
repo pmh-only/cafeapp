@@ -38,6 +38,22 @@ module "networking" {
   availability_zones = var.availability_zones
 }
 
+# Frontend Applications Module
+module "frontend_apps" {
+  source = "./modules/frontend-apps"
+
+  project_name           = var.project_name
+  environment            = var.environment
+  frontend_source_path   = "${path.root}/../../frontends"
+  cloudfront_price_class = "PriceClass_100"
+  enable_waf             = false  # WAF requires us-east-1
+
+  tags = {
+    Component = "Frontend"
+    Deployment = "Terraform"
+  }
+}
+
 # Databases Module
 module "databases" {
   source = "./modules/databases"

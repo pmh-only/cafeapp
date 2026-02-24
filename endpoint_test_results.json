@@ -10,8 +10,8 @@
       "status": "PASS",
       "ip_addresses": [
         "13.124.210.29",
-        "54.180.65.230",
-        "3.39.147.236"
+        "3.39.147.236",
+        "54.180.65.230"
       ]
     },
     {
@@ -30,7 +30,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.008,
+      "response_time": 0.014,
       "error": null
     },
     {
@@ -39,7 +39,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.005,
+      "response_time": 0.006,
       "error": null
     },
     {
@@ -57,7 +57,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 403,
-      "response_time": 0.068,
+      "response_time": 0.062,
       "error": null
     },
     {
@@ -66,7 +66,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 403,
-      "response_time": 0.075,
+      "response_time": 0.07,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 1.29,
+      "response_time": 1.281,
       "error": null
     },
     {
@@ -102,7 +102,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 1.295,
+      "response_time": 1.28,
       "error": null
     },
     {
@@ -111,7 +111,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 1.029,
+      "response_time": 1.288,
       "error": null
     },
     {
@@ -120,7 +120,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.008,
+      "response_time": 0.005,
       "error": null
     },
     {
@@ -129,7 +129,7 @@
       "method": "POST",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.009,
+      "response_time": 0.007,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "method": "GET",
       "status": "FAIL",
       "status_code": 503,
-      "response_time": 0.005,
+      "response_time": 0.003,
       "error": null
     },
     {
@@ -156,7 +156,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.005,
+      "response_time": 0.003,
       "error": null
     },
     {
@@ -177,7 +177,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.004,
+      "response_time": 0.003,
       "error": null
     },
     {
@@ -186,7 +186,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.004,
+      "response_time": 0.005,
       "error": null
     },
     {
@@ -195,7 +195,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.003,
+      "response_time": 0.008,
       "error": null
     },
     {
@@ -204,7 +204,7 @@
       "method": "GET",
       "status": "PASS",
       "status_code": 404,
-      "response_time": 0.006,
+      "response_time": 0.005,
       "error": null
     },
     {
