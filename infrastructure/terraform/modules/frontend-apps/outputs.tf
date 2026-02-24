@@ -38,11 +38,12 @@ output "cloudfront_url" {
 output "frontend_urls" {
   description = "URLs for all frontend applications"
   value = {
-    main_portal      = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/apps.html"
-    customer_web     = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/"
+    main_portal       = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/apps.html"
+    customer_web      = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/"
     barista_dashboard = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/barista/"
-    mobile_app       = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/mobile/"
-    admin_analytics  = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/admin/"
+    mobile_app        = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/mobile/"
+    admin_analytics   = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/admin/"
+    staff_portal      = "https://${aws_cloudfront_distribution.frontend_apps.domain_name}/staff/"
   }
 }
 

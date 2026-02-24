@@ -195,6 +195,27 @@ resource "aws_cloudfront_distribution" "frontend_apps" {
     compress               = true
   }
 
+  # Cache behavior for Staff Portal
+  ordered_cache_behavior {
+    path_pattern     = "/staff/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "S3-${aws_s3_bucket.frontend_apps.id}"
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 300  # 5 minutes for staff portal
+    max_ttl                = 3600
+    compress               = true
+  }
+
   # Custom error responses for SPA routing
   custom_error_response {
     error_code         = 404
@@ -284,6 +305,36 @@ resource "aws_s3_object" "admin_analytics" {
 
   tags = {
     App = "admin-analytics"
+  }
+}
+
+# Upload Staff Portal HTML
+resource "aws_s3_object" "staff_portal_html" {
+  bucket       = aws_s3_bucket.frontend_apps.id
+  key          = "staff/index.html"
+  source       = "${var.frontend_source_path}/staff-portal/index.html"
+  etag         = filemd5("${var.frontend_source_path}/staff-portal/index.html")
+  content_type = "text/html"
+
+  cache_control = "max-age=300"
+
+  tags = {
+    App = "staff-portal"
+  }
+}
+
+# Upload Staff Portal JS
+resource "aws_s3_object" "staff_portal_js" {
+  bucket       = aws_s3_bucket.frontend_apps.id
+  key          = "staff/staff-portal.js"
+  source       = "${var.frontend_source_path}/staff-portal/staff-portal.js"
+  etag         = filemd5("${var.frontend_source_path}/staff-portal/staff-portal.js")
+  content_type = "application/javascript"
+
+  cache_control = "max-age=300"
+
+  tags = {
+    App = "staff-portal"
   }
 }
 
