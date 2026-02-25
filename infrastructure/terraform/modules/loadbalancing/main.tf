@@ -213,13 +213,13 @@ resource "aws_lb" "network" {
   }
 }
 
-# NLB Target Group - Loyalty Service (EC2)
+# NLB Target Group - Loyalty Service (Fargate)
 resource "aws_lb_target_group" "loyalty_service" {
   name        = "${var.project_name}-loyalty-tg-${var.environment}"
   port        = 8080
   protocol    = "TCP"
   vpc_id      = var.vpc_id
-  target_type = "instance"
+  target_type = "ip"
 
   health_check {
     enabled             = true
@@ -258,11 +258,6 @@ resource "aws_lb_listener" "network" {
   }
 }
 
-# Attach EC2 Auto Scaling Group to NLB Target Group
-resource "aws_autoscaling_attachment" "loyalty_service" {
-  autoscaling_group_name = var.ec2_autoscaling_group_name
-  lb_target_group_arn    = aws_lb_target_group.loyalty_service.arn
-}
 
 # VPC Lattice Service Network
 resource "aws_vpclattice_service_network" "main" {

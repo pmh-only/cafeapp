@@ -284,8 +284,10 @@ resource "aws_redshift_cluster" "main" {
   cluster_type        = "single-node"
   cluster_subnet_group_name = var.redshift_subnet_group_name
   vpc_security_group_ids    = [var.redshift_security_group_id]
-  publicly_accessible = false
-  skip_final_snapshot = true
+  publicly_accessible                  = false
+  skip_final_snapshot                  = true
+  encrypted                            = true
+  availability_zone_relocation_enabled = true
 
   logging {
     enable = false
